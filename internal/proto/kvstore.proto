@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package kvstore;
+
+option go_package = "kvstore-benchmarker/internal/proto;kvstore";
+
+// The key-value store service definition.
+service KeyValueStore {
+  // Put a key-value pair into the store.
+  rpc Put (PutRequest) returns (PutResponse);
+
+  // Get the value for a key.
+  rpc Get (GetRequest) returns (GetResponse);
+
+  // Delete a key-value pair.
+  rpc Delete (DeleteRequest) returns (DeleteResponse);
+}
+
+// Request message for Put.
+message PutRequest {
+  bytes key = 1;
+  bytes value = 2;
+}
+
+// Response message for Put.
+message PutResponse {
+  bool success = 1;
+  string error = 2;
+}
+
+// Request message for Get.
+message GetRequest {
+  bytes key = 1;
+}
+
+// Response message for Get.
+message GetResponse {
+  bytes value = 1;
+  bool found = 2;
+  string error = 3;
+}
+
+// Request message for Delete.
+message DeleteRequest {
+  bytes key = 1;
+}
+
+// Response message for Delete.
+message DeleteResponse {
+  bool success = 1;
+  string error = 2;
+} 
